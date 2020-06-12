@@ -10,7 +10,7 @@
     <linK rel="stylesheet" href="/stylesheets/main.css">
 </head>
 
-<body>
+<body >
     <!-- <p>Header added</p> navbar-fixed-top => fixed-top -->
     <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top"> 
         <a href="/movies" class="navbar-brand">
@@ -27,13 +27,13 @@
                 </li>
                <% if(currentuser) {  %> 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Hi! <%= currentuser.username %></a>
+                        <a class="nav-link " href="#">Hi! <%= currentuser.username %></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">Logout</a>
                     </li>
                <% } else {  %>
-                    <li class="nav-item">
+                    <li class="nav-item ">
                         <a class="nav-link" href="/login">Login</a>
                     </li>
 
