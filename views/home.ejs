@@ -1,0 +1,32 @@
+<%- include('partials/header.ejs') %>
+
+<div class="container" id="top-padding">
+    <h2 style="text-align: center; margin-top: 10px;">Enter movie name</h2>
+    <div style="width:35% ; margin: 15px auto;">
+        <form action="/movies" method="POST">
+            <div class="form-group">
+                <label for="movie[name]">Name</label>
+                <input class="form-control" type="text" name="movie[name]" placeholder="Enter name" autofocus required>
+            </div>
+            <div class="form-group">
+                <label for="movie[release]">Year of Release</label>
+                <input class="form-control" type="text" name="movie[year]" placeholder="Year of Release"  >
+            </div>
+            <div class="form-group">
+                <label for="movie[type]">Type </label>
+                <input class="form-control" type="text" name="movie[type]"  placeholder="Ex- movie,series ..." >
+            </div>
+            <div class="form-group">
+                <button class="btn btn-md btn-primary btn-block">Search</button>
+            </div>
+        </form>
+        <hr>
+        <a href="/">Go Back!</a>
+        <hr>
+
+    </div>
+</div>
+
+
+
+<%- include('partials/footer.ejs') %>

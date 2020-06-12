@@ -1,0 +1,34 @@
+<%- include('partials/header.ejs') %>
+
+
+
+<div class="container" id="top-padding">
+    <div class="row text-center" style="display:flex; flex-wrap:wrap;">
+        <% if(result) {  %>
+        <% result.forEach(function(movie){  %>
+        <div class="col-md-3">
+            <div class="img-thumbnail">
+               <% if(movie.Poster == "N/A") { movie.Poster = "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" } %>
+                <img class="img-fluid" src="<%= movie.Poster %>">
+                <div class="caption">
+                    <p id="Font-change"><%= movie.Title %></p>
+                </div>
+                <p>
+                    <!-- <a href="#" class="btn btn-primary">
+                        More info
+                    </a> -->
+                    <form action="/movies/<%=movie.imdbID %>" method="POST">
+                        <button class="btn btn-primary btn-sm" >More Info</button>
+                    </form>
+                </p>
+            </div>
+        </div>
+        <% }) } %>
+            
+        
+    </div>
+</div>
+
+
+
+<%- include('partials/footer.ejs') %>

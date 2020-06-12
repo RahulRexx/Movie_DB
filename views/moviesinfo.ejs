@@ -1,0 +1,29 @@
+<%- include('partials/header.ejs') %>
+
+<!-- <h1>Page Hitted</h1> -->
+<div class="container" style="margin-top: 80px ;" id="top-padding">
+    <div class="text-center" style=" margin: 0 0 50px;  font-size: 40px;  text-decoration: underline;  font-family: cursive;">
+         <h4>About <%=result.Title %></h4> 
+    </div>
+    <div class="row">
+        <div class="col-md-4" style="overflow: hidden;">
+            <div class="img-thumbnail"  >
+               <% if(result.Poster== "N/A") { result.Poster = "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" } %>
+                <img style="width: 100% !important;"  src="<%=result.Poster %>" alt="Poster">
+            </div>
+        </div>
+        <div class="col-md-8"  style="width: 100%;">
+            <h4 style="text-decoration: underline;"><%= result.Title %> | <%= result.Released %></h4>
+            <p>Imdb-Rating : <%=result.imdbRating%></p>
+            <p>Type : <%=result.Type%></p>
+            <p>Runtime :<%= result.Runtime %></p>
+            <p>Genre :<%=result.Genre %></p>
+            <em><%=result.Plot%></em>
+            <hr style="border-top: .2rem solid #1ebba3; width : 100%;">
+            
+            
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer.ejs') %>
