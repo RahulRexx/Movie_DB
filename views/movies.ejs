@@ -10,6 +10,7 @@
             <div class="img-thumbnail">
                <% if(movie.Poster == "N/A") { movie.Poster = "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" } %>
                 <img class="img-fluid" src="<%= movie.Poster %>">
+                <hr>
                 <div class="caption">
                     <p id="Font-change"><%= movie.Title %></p>
                 </div>
