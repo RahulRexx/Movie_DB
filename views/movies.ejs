@@ -6,7 +6,7 @@
     <div class="row text-center" style="display:flex; flex-wrap:wrap;">
         <% if(result) {  %>
         <% result.forEach(function(movie){  %>
-        <div class="col-md-3">
+        <div class="col-md-3 col-sm-6">
             <div class="img-thumbnail">
                <% if(movie.Poster == "N/A") { movie.Poster = "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" } %>
                 <img class="img-fluid" src="<%= movie.Poster %>">
