@@ -27,11 +27,11 @@
 
              <%  if(found == 0) { %>
                 <form action="<%=result.imdbID %>" method="POST">
-                    <button class="btn btn-success btn-sm">Add to watched list</button>
+                    <button class="btn btn-success btn-sm" style="margin-bottom: 20px;">Add to watched list</button>
                 </form>
              <%  } else {  %>
                 <form action="<%=result.imdbID %>?_method=delete" method="POST">
-                    <button class="btn btn-danger btn-sm">Remove from watched list</button>
+                    <button class="btn btn-danger btn-sm" style="margin-bottom: 20px;">Remove from watched list</button>
                 </form>
              <%  }  %>
             
