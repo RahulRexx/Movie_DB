@@ -2,13 +2,15 @@
 
 
 
-<div class="container" id="top-padding">
+<div class="container" style="margin-top: 10px;">
+   <h2 class="text-center" style="color: black; margin-bottom:5px;">Your Watched List</h2>
+   <hr style="border-top: .2rem solid #1ebba3; width : 100%; margin-top: 0;">
     <div class="row text-center" style="display:flex; flex-wrap:wrap;">
         <% if(result) {  %>
         <% result.forEach(function(movie){  %>
         <div class="col-md-3 col-sm-6">
             <div class="img-thumbnail">
-               <% if(movie.Poster == "N/A") { movie.Poster = "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" } %>
+                <% if(movie.Poster == "N/A") { movie.Poster = "https://www.indiaspora.org/wp-content/uploads/2018/10/image-not-available.jpg" } %>
                 <img class="img-fluid" src="<%= movie.Poster %>">
                 <hr>
                 <div class="caption">
@@ -19,14 +21,14 @@
                         More info
                     </a> -->
                     <form action="/movies/<%=movie.imdbID %>" method="GET">
-                        <button class="btn btn-primary btn-sm" >More Info</button>
+                        <button class="btn btn-primary btn-sm">More Info</button>
                     </form>
                 </p>
             </div>
         </div>
         <% }) } %>
-            
-        
+
+
     </div>
 </div>
 

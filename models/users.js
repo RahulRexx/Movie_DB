@@ -1,9 +1,16 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
+// var {Movie} = require("./movies.js");
 
 var userSchema = new mongoose.Schema({
     username: String,
-    passport: String
+    passport: String,
+    movies : [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref : "Movie"
+        }
+    ]
 });
 
 //===========================================================================================always after schema

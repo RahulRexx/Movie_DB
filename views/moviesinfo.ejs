@@ -20,7 +20,10 @@
             <p>Genre :<%=result.Genre %></p>
             <em><%=result.Plot%></em>
             <hr style="border-top: .2rem solid #1ebba3; width : 100%;">
-            
+            <!-- <a href="/movies/new" class="btn btn-success btn-sm">Add to watched list</a> -->
+            <form action="<%=result.imdbID %>" method="POST">
+                <button class="btn btn-success btn-sm">Add  to watched list</button>
+            </form>
             
         </div>
     </div>

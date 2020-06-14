@@ -9,6 +9,8 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const flash = require("connect-flash");
 var {User} = require("./models/users.js");
 var {sendMail} = require("./mail.js");
+var {Movie} = require("./models/movies.js");
+var middleware = require("./middleware/middleware.js");
 
 
 
@@ -95,10 +97,11 @@ app.post("/movies",(req,res1) => {
 
 
 //============show page==================================================
-app.post("/movies/:id" ,(req1,res1) => {
+var result;
+app.get("/movies/:id",middleware.isLoggedIn ,(req1,res1) => {
     // console.log();
     var name = req1.params.id;
-    var result;
+    
     var url = "http://www.omdbapi.com/?apikey=6049af90&i=" + name +"&plot=full";
     // console.log(url);
     
@@ -115,6 +118,62 @@ app.post("/movies/:id" ,(req1,res1) => {
         }
     });
 });
+//================= Add to watch list ==========================
+
+app.post("/movies/:id", middleware.isLoggedIn, (req, res) => {
+     console.log("Hitted post");
+    //  console.log(result);
+    //
+    
+    var newMoive = new Movie({
+        Poster : result.Poster,
+        Title: result.Title,
+        imdbRating: result.imdbRating,
+        imdbID: result.imdbID,
+        Type : result.Type,
+        Runtime : result.Runtime,
+        Genre : result.Genre,
+        Plot : result.Plot,
+        Released : result.Released
+    
+    });
+
+    newMoive.save().then( (movie) => {
+        User.findOne({username : req.user.username}).then((user) => {
+            user.movies.push(movie);
+            
+            user.save().then((data) => {
+                console.log("datasaved ");
+            } ,(err) => {
+                console.log("Error occured",err);
+            })
+        },(err) => {
+            console.log("Error occured", err);
+        })
+    },(err) => {
+        console.log("Error occured", err);
+    });
+
+    req.flash("success","Added to wishlist");
+    // res.redirect("/movies/"+req.params.id);
+    res.redirect("back");
+
+});
+
+//===================VIEW WATCHED LIST============================
+
+app.get("/watchedlist", middleware.isLoggedIn, (req, res) => {
+    User.findOne({username : req.user.username}).populate("movies").exec().then((user) => {
+        res.render("yourwatchedlist", {result : user.movies});
+        console.log(user);
+    },(err) => {
+        console.log("Error occured", err);
+    });
+
+    
+});
+
+ 
 
 //====================contact me form ====================
 
