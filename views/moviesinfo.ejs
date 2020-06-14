@@ -21,9 +21,19 @@
             <em><%=result.Plot%></em>
             <hr style="border-top: .2rem solid #1ebba3; width : 100%;">
             <!-- <a href="/movies/new" class="btn btn-success btn-sm">Add to watched list</a> -->
-            <form action="<%=result.imdbID %>" method="POST">
-                <button class="btn btn-success btn-sm">Add  to watched list</button>
-            </form>
+            <!-- <form action="<%=result.imdbID %>" method="POST">
+                <button style=" margin-bottom: 20px;" class="btn btn-success btn-sm">Add to watched list</button>
+            </form> -->
+
+             <%  if(found == 0) { %>
+                <form action="<%=result.imdbID %>" method="POST">
+                    <button class="btn btn-success btn-sm">Add to watched list</button>
+                </form>
+             <%  } else {  %>
+                <form action="<%=result.imdbID %>?_method=delete" method="POST">
+                    <button class="btn btn-danger btn-sm">Remove from watched list</button>
+                </form>
+             <%  }  %>
             
         </div>
     </div>

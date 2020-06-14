@@ -85,6 +85,12 @@ body {
     margin-top: 3px;
 }
 
+#watchedlist{
+    color: black;
+    margin-bottom:5px;
+}
+
+
 @media only screen and (max-width: 600px) {
    #width-changer{
        width: 100%;
@@ -100,6 +106,9 @@ body {
 
    .btn-lg {
        font-size: .8rem;
+   }
+   #watchedlist {
+       font-size: large;
    }
 }
 
@@ -124,5 +133,6 @@ body {
     #content-pad{
         margin-top: 20px;
     }
+    
 
 }

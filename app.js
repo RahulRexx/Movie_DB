@@ -7,10 +7,14 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 const flash = require("connect-flash");
+const methodOverride = require("method-override");
+
+
 var {User} = require("./models/users.js");
 var {sendMail} = require("./mail.js");
 var {Movie} = require("./models/movies.js");
 var middleware = require("./middleware/middleware.js");
+
 
 
 
@@ -23,6 +27,7 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(express.static(__dirname + "/public"));
+app.use(methodOverride("_method"));
 
 //======================Express-session=============================== (secret  will be used to encode and decode the sessions )
 app.use(require("express-session")({
@@ -85,6 +90,7 @@ app.post("/movies",(req,res1) => {
         result = JSON.parse(body);
         // console.log(result.Search);
         if(result.Search) {
+            
             res1.render("movies", {result : result.Search});
         }
         else  {
@@ -109,7 +115,34 @@ app.get("/movies/:id",middleware.isLoggedIn ,(req1,res1) => {
         result = JSON.parse(body);
         // console.log(result.Search);
         if (result) {
-            res1.render("moviesinfo", { result: result });
+            var found = 0;
+            ////////
+            User.findOne({username : req1.user.username}).populate("movies").exec().then((user) => {
+                // res.render("yourwatchedlist", {result : user.movies});
+                user.movies.forEach((movie) => {
+                    if (movie.imdbID == req1.params.id)
+                    {
+                        found = 1;
+                    }
+                });
+                if(found === 1)
+                {
+                    console.log("found ans",found);
+                    res1.render("moviesinfo", { result: result , found : found});
+                }
+                else{
+                    console.log("ans Not found ");
+                    res1.render("moviesinfo", { result: result , found : found});
+                }
+            },(err) => {
+                console.log("Error occured", err);
+            });
+            
+            // console.log("found is ",found);
+            
+            
+            ////////////////////
+            // res1.render("moviesinfo", { result: result , found : found});
         }
         else {
             req.flash("warning","No result found!!!! Please enter a valid name");
@@ -154,7 +187,7 @@ app.post("/movies/:id", middleware.isLoggedIn, (req, res) => {
         console.log("Error occured", err);
     });
 
-    req.flash("success","Added to wishlist");
+    req.flash("success","Added to watched list");
     // res.redirect("/movies/"+req.params.id);
     res.redirect("back");
 
@@ -165,12 +198,43 @@ app.post("/movies/:id", middleware.isLoggedIn, (req, res) => {
 app.get("/watchedlist", middleware.isLoggedIn, (req, res) => {
     User.findOne({username : req.user.username}).populate("movies").exec().then((user) => {
         res.render("yourwatchedlist", {result : user.movies});
-        console.log(user);
+        // console.log(user);
     },(err) => {
         console.log("Error occured", err);
     });
 
     
+});
+//====================Delete from Watched list =======================
+
+app.delete("/movies/:id",(req,res) => {
+    // res.send("delete  hitted");
+     User.findOne({username : req.user.username}).populate("movies").exec().then((user) => {
+                // res.render("yourwatchedlist", {result : user.movies});
+                user.movies.forEach((movie) => {
+                    if (movie.imdbID == req.params.id)
+                    {
+                        // console.log("movie id",movie._id);
+                        Movie.findByIdAndRemove(movie._id ,(err,docs) => {
+                            if(err)
+                            {
+                                console.log("Error occured while deleting");
+                                req.flash("error", "Error occured while deleting");
+                                res.redirect("back");
+                            }
+                            else{
+                                req.flash("success", "Removed form watched list")
+                                // console.log("deleted successfully",docs);
+                                res.redirect("back");
+                            }
+                        });
+                    }
+                });
+            },(err) => {
+                console.log("Error occured", err);
+            });
+
+
 });
 
  
@@ -250,7 +314,7 @@ app.post("/login", passport.authenticate("local", {
 //======================= Logout =================================
 app.get("/logout", (req, res) => {
     req.logout(); //req.logout() == passport destroys all the user data in the session ,it no longer keeping tracks of this user data in the session
-    req.flash("success", "Logged out seccessfully. Look forward to seeing you again!");
+    req.flash("success", "Logged out seccessfully. Have a good day!");
     res.redirect("/movies");
 });
 
