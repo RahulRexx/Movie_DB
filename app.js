@@ -8,7 +8,7 @@ const localStrategy = require("passport-local");
 const passportLocalMongoose = require("passport-local-mongoose");
 const flash = require("connect-flash");
 const methodOverride = require("method-override");
-
+const morgan = require('morgan');
 
 var {User} = require("./models/users.js");
 var {sendMail} = require("./mail.js");
@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(flash());
 app.use(express.static(__dirname + "/public"));
 app.use(methodOverride("_method"));
+app.use(morgan('dev'));
 
 //======================Express-session=============================== (secret  will be used to encode and decode the sessions )
 app.use(require("express-session")({

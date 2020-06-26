@@ -24,6 +24,7 @@ body {
     margin-top: 5px;
     margin-bottom: 5px;
     font-family: cursive;
+    color: black;
 }
 
 .navbar {
@@ -86,7 +87,7 @@ body {
 }
 
 #watchedlist{
-    color: black;
+    color: white;
     margin-bottom:5px;
 }
 
@@ -136,3 +137,155 @@ body {
     
 
 }
+
+.icons {
+      margin-top: 1rem;
+  }
+
+.icons a {
+      padding: 0.4rem;
+      color : #fff;
+  }
+
+
+  .icons a:hover {
+      color: yellow;
+      transition: all 0.5s ease-out;
+  }
+
+
+
+  /* backgrounds */
+.bg-img {
+      background: url(./background.jpg) ;
+      background-attachment: fixed;
+      background-size: cover;
+  }
+
+  .bg-img {
+      color: #fff;
+      height: 100%;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.5;
+  }
+
+  body.bg-img:after {
+      content: '';
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: rgba(68, 68, 68, 0.9);
+  }
+
+  .bg-img-login {
+      background: url(./login.jpeg);
+      background-attachment: fixed;
+      background-size: cover;
+  }
+
+
+
+  body.bg-img-login:after {
+      content: '';
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: rgba(68, 68, 68, 0.9);
+  }
+
+  .bg-img-signup {
+      background: url(./signup.jpeg);
+      background-attachment: fixed;
+      background-size: cover;
+  }
+
+
+
+  body.bg-img-signup:after {
+      content: '';
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: rgba(68, 68, 68, 0.9);
+  }
+
+  .bg-img-search {
+      background: url(./moviepage.jpeg);
+      background-attachment: fixed;
+      background-size: cover;
+  }
+
+
+
+  body.bg-img-search:after {
+      content: '';
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      background: rgba(68, 68, 68, 0.6);
+  }
+
+   .bg-img-watched {
+       background: url(./watchedlist.jpeg);
+       background-attachment: fixed;
+       background-size: cover;
+   }
+
+
+
+   body.bg-img-watched:after {
+       content: '';
+       position: fixed;
+       top: 0;
+       right: 0;
+       width: 100%;
+       height: 100%;
+       z-index: -1;
+       background: rgba(68, 68, 68, 0.6);
+   }
+
+    .bg-img-movieinfo {
+        background: url(./movieinfo.jpeg);
+        background-attachment: fixed;
+        background-size: cover;
+    }
+
+
+
+    body.bg-img-movieinfo:after {
+        content: '';
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: rgba(68, 68, 68, 0.9);
+    }
+
+
+      body:after {
+          content: '';
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          background: rgba(68, 68, 68, 0.6);
+      }
+
+        /* backgrounds */

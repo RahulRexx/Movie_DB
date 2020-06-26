@@ -1,155 +1,239 @@
-<%- include('partials/header.ejs') %>
+<!DOCTYPE html>
+<html>
 
-<style>
-    body {
-        background-image: url("https://cdn.pixabay.com/photo/2018/09/24/10/19/system-3699542_1280.jpg");
-        height: 100vh;
-        /* width: 100vh; */
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie BD</title>
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="/stylesheets/bootstrap-4.1.3-dist/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet"  href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.1.1/bootstrap-social.min.css"> -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+    <linK rel="stylesheet" href="/stylesheets/main.css">
+</head>
 
-        /* Center and scale the image nicely */
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        /* opacity: .4; */
-    }
-</style>
-
-<div class="container"  > 
-    
-    <section class="mb-4">
-
-    <!--Section heading-->
-    <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
-    <!--Section description-->
-    <p class="text-center w-responsive mx-auto mb-5">Feel free to share your Suggestions. </p>
-
-    <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-9 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="/contact" method="POST">
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Your name</label>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="email" name="email" class="form-control">
-                            <label for="email" class="">Your email</label>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="md-form mb-0">
-                            <input type="text" id="subject" name="subject" class="form-control">
-                            <label for="subject" class="">Subject</label>
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-12">
-
-                        <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2"
-                                class="form-control md-textarea"></textarea>
-                            <label for="message">Your message</label>
-                        </div>
-
-                    </div>
-                </div>
-                <!--Grid row-->
-                <div class="text-center text-md-left">
-                    <button class="btn btn-primary" onclick=" return  validateForm();"> Send </button>
-                    <!-- <a class="btn btn-primary" onclick="validateForm();">Send</a> -->
-                </div>
-                <!-- <div class=""></div> -->
-            </form>
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-md-3 text-center">
-            <ul class="list-unstyled mb-0">
-                <li><i class="fas fa-map-marker-alt fa-2x"></i>
-                    <p>Mesra, Ranchi, India</p>
+<body class="bg-img">
+    <!-- <p>Header added</p> navbar-fixed-top => fixed-top -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-fixed-top">
+        <a href="/" class="navbar-brand">
+            Movie DB
+        </a>
+        <!-- hamburger wala -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/movies">Home</a>
+                </li>
+                <% if(currentuser) {  %>
+                <li class="nav-item">
+                    <a class="nav-link " href="#">Hi! <%= currentuser.username %></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/watchedlist">Your Watched List</a>
+                </li>
+                <% } else {  %>
+                <li class="nav-item ">
+                    <a class="nav-link" href="/login">Login</a>
                 </li>
 
-                <li><i class="fas fa-phone mt-4 fa-2x"></i>
-                    <p>7004-310-309</p>
+                <li class="nav-item">
+                    <a class="nav-link" href="/register">Register</a>
                 </li>
+                <% }  %>
 
-                <li><i class="fas fa-envelope mt-4 fa-2x"></i>
-                    <p>rahulraj.raj3325@gmail.com</p>
+                <li class="nav-item">
+                    <a class="nav-link" href="/contact">Contact</a>
                 </li>
             </ul>
         </div>
-        <!--Grid column-->
+    </nav>
+
+    <div class="container">
+        <% if(warning && warning.length > 0) { %>
+        <div class="alert alert-warning" role="alert">
+            <%= warning %>
+        </div>
+        <% } %>
+        <% if( success && success.length>0) { %>
+        <div class="alert alert-success" role="alert">
+            <%= success %>
+        </div>
+        <% } %>
+        <% if( error && error.length>0) { %>
+        <div class="alert alert-danger" role="alert">
+            <%= error %>
+        </div>
+        <% } %>
 
     </div>
 
-    </section>
-    <!--Section: Contact v.2-->
-</div>
 
-<script>
-    function validateForm() {
-        var name = document.getElementById('name').value;
-        if (name == "") {
-            // document.querySelector('.status').innerHTML = "Name cannot be empty";
-            alert("Name cannot be empty");
-            return false;
-        }
-        var email = document.getElementById('email').value;
-        if (email == "") {
-            // document.querySelector('.status').innerHTML = "Email cannot be empty";
-            alert("Email cannot be empty");
-            return false;
-        } else {
-            var re =
-                /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            if (!re.test(email)) {
-                // document.querySelector('.status').innerHTML = "Email format invalid";
-                alert("Email format invalid");
+    <!--Section: Contact v.2-->
+
+    <div class="container" id="top-padding">
+
+
+        <section class="mb-4">
+
+            <!--Section heading-->
+            <h2 class="h1-responsive font-weight-bold text-center my-4">Contact us</h2>
+            <!--Section description-->
+            <h5 class="text-center w-responsive mx-auto mb-5">Feel free to share your Suggestions. </h5>
+
+            <div class="row">
+
+                <!--Grid column-->
+                <div class="col-md-9 mb-md-0 mb-5">
+                    <form id="contact-form" name="contact-form" action="/contact" method="POST">
+
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="name" name="name" class="form-control" autofocus
+                                        autocomplete="off">
+                                    <label for="name" class="">Your name</label>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                            <!--Grid column-->
+                            <div class="col-md-6">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="email" name="email" class="form-control" autocomplete="off">
+                                    <label for="email" class="">Your email</label>
+                                </div>
+                            </div>
+                            <!--Grid column-->
+
+                        </div>
+                        <!--Grid row-->
+
+                        <!--Grid row-->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="md-form mb-0">
+                                    <input type="text" id="subject" name="subject" class="form-control"
+                                        autocomplete="off">
+                                    <label for="subject" class="">Subject</label>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Grid row-->
+
+                        <!--Grid row-->
+                        <div class="row">
+
+                            <!--Grid column-->
+                            <div class="col-md-12">
+
+                                <div class="md-form">
+                                    <textarea type="text" id="message" name="message" rows="2"
+                                        class="form-control md-textarea"></textarea>
+                                    <label for="message">Your message</label>
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--Grid row-->
+                        <div class="text-center text-md-left">
+                            <button class="btn btn-primary btn-block" onclick=" return  validateForm();"> Send </button>
+                            <!-- <a class="btn btn-primary" onclick="validateForm();">Send</a> -->
+                        </div>
+                        <!-- <div class=""></div> -->
+                    </form>
+                </div>
+                <!--Grid column-->
+
+                <!--Grid column-->
+                <div class="col-md-3 text-center">
+                    <ul class="list-unstyled mb-0">
+                        <li><i class="fas fa-map-marker-alt fa-2x"></i>
+                            <p>Mesra, Ranchi, India</p>
+                        </li>
+
+                        <li><i class="fas fa-phone mt-4 fa-2x"></i>
+                            <p>7004-310-309</p>
+                        </li>
+
+                        <li><i class="fas fa-envelope mt-4 fa-2x"></i>
+                            <p>rahulraj.raj3325@gmail.com</p>
+                        </li>
+                    </ul>
+                </div>
+                <!--Grid column-->
+
+            </div>
+
+        </section>
+        <!--Section: Contact v.2-->
+        <hr>
+
+        <div class="icons">
+
+            <a href="#">
+                <i class="fab fa-facebook-square fa-2x" aria-hidden="true"></i>
+            </a>
+
+            <a href="#">
+                <i class="fab fa-github fa-2x" aria-hidden="true"></i>
+            </a>
+
+            <a href="#">
+                <i class="fab fa-linkedin fa-2x" aria-hidden="true"></i>
+            </a>
+
+        </div>
+
+    </div>
+
+    <script>
+        function validateForm() {
+            var name = document.getElementById('name').value;
+            if (name == "") {
+                // document.querySelector('.status').innerHTML = "Name cannot be empty";
+                alert("Name cannot be empty");
                 return false;
             }
+            var email = document.getElementById('email').value;
+            if (email == "") {
+                // document.querySelector('.status').innerHTML = "Email cannot be empty";
+                alert("Email cannot be empty");
+                return false;
+            } else {
+                var re =
+                    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                if (!re.test(email)) {
+                    // document.querySelector('.status').innerHTML = "Email format invalid";
+                    alert("Email format invalid");
+                    return false;
+                }
+            }
+            var subject = document.getElementById('subject').value;
+            if (subject == "") {
+                // document.querySelector('.status').innerHTML = "Subject cannot be empty";
+                alert("Subject cannot be empty");
+                return false;
+            }
+            var message = document.getElementById('message').value;
+            if (message == "") {
+                // document.querySelector('.status').innerHTML = "Message cannot be empty";
+                alert("Message cannot be empty");
+                return false;
+            }
+            // document.querySelector('.status').innerHTML = "Sending...";
+            // alert("Sending...");
         }
-        var subject = document.getElementById('subject').value;
-        if (subject == "") {
-            // document.querySelector('.status').innerHTML = "Subject cannot be empty";
-            alert("Subject cannot be empty");
-            return false;
-        }
-        var message = document.getElementById('message').value;
-        if (message == "") {
-            // document.querySelector('.status').innerHTML = "Message cannot be empty";
-            alert("Message cannot be empty");
-            return false;
-        }
-        // document.querySelector('.status').innerHTML = "Sending...";
-        // alert("Sending...");
-    }
-</script>
+    </script>
 
 
-<%- include('partials/footer.ejs') %>
+
+    <%- include('partials/footer.ejs') %>
